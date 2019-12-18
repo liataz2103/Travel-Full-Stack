@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async function(){
             <img class="card-img-top" src="${post.imageURL}" alt="${post.title}">
             <div class="card-body">
                 <h4 class="card-title">${post.title}</h4>
-                <p class="card-text">${posts.description}</p>
+                <p class="card-text">${post.description}</p>
                 <button class="btn btn-primary">Details</button>
             </div>
         </div>

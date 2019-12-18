@@ -22,13 +22,7 @@ let imageStorage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, 'public/images'), //cb - call back function that gets 2 arguments - 1 - error case, 2-path
     filename: (req, file, cb) => cb(null, file.originalname) //cb - call back function that gets 2 arguments - 1 - error case, 2-file name
 })
-
 app.use(multer({storage: imageStorage}).single('imageFile')); //image file is the key from which we retrieve the data from the data object in the client side
-//initiate id
-
-// Whenever a request start with a route path /posts it will be redirected tp the routes folder
-// app.use('/posts', postsRouter);
-
 
 //all static files are stored in public folder
 app.use(express.static('public'));

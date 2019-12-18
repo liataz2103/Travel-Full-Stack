@@ -16,12 +16,15 @@ router.get('/', async (req, resp) => {
 //when the server gets a post request from the client (after submitting the form), he routes the request to the db
 router.post('/', async (req, resp) => {
     let reqBody = req.body;
-    // let imgPath;
-    // if(reqBody.imageURL){
-    //     imgPath = reqBody.imageURL
-    // }else{
-    //     imgPath = req.file.path.substring(req.file.path.indexOf('/'), req.file.path.length);
-    // }
+    let imgPath;
+    // if imageURL is not empty (we upload image through url)
+    if(reqBody.imageUrl){
+        imgPath = reqBody.imageUrl // we set imgpath to the omageURL
+    }else{ // if we apload image through file
+        let path = req.file.path.indexOf('c') +1
+        imgPath = req.file.path.substring((req.file.path.indexOf('c')+1), req.file.path.length);
+        console.log(imgPath);
+     }
     let newPost = new Post ({
         id: id++,
         title: reqBody.title,
@@ -29,7 +32,7 @@ router.post('/', async (req, resp) => {
         description: reqBody.description,
         text: reqBody.text,
         country: reqBody.country,
-        imageURL: reqBody.imageUrl
+        imageURL: imgPath
     })
     
     // save the newly added post

@@ -9,11 +9,13 @@ let createImageFile = document.querySelector("#create-image-file"); // we get th
 createForm.addEventListener("submit", function(e){
     e.preventDefault();
     let text = createText.value;
-    // in our case we have the possibility to add image as file (instead of url) so we need to create a data object rateher use json
+    // in our case we have the possibility to add image as file (instead of url) 
+    // so we need to create a data object rateher use json
     let data = new FormData(); // created an empty object
     data.append('title', createTitle.value);
     data.append('country', createCountry.value);
     data.append('imageUrl', createImageURL.value);
+    data.append('text', text);
     data.append('description', text.substring(0, text.indexOf('.') + 1));
     data.append('imageFile', createImageFile.files[0]);
 
