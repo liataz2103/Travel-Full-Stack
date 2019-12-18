@@ -13,6 +13,15 @@ router.get('/', async (req, resp) => {
     resp.send(posts);
 });
 
+router.get('/:id', async (req, resp) => {
+    let id = req.params.id
+    console.log(id)
+    let post = await Post.findOne({_id: id});
+    console.log(post)
+    resp.send(post);
+});
+
+
 //when the server gets a post request from the client (after submitting the form), he routes the request to the db
 router.post('/', async (req, resp) => {
     let reqBody = req.body;
@@ -48,6 +57,12 @@ router.delete('/:id', async(req, resp) =>{
     await Post.deleteOne({_id: id});
     resp.send ('deleted!');
 })
+
+router.put('/:id', async (req, resp) => {
+    let id = req.params.id
+    let post = await Post.updateOne({_id: id}, req.body);
+    resp.send('updated!');
+});
 
 module.exports = router;
 

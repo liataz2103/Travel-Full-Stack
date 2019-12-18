@@ -5,6 +5,20 @@ let addPostBtn = document.querySelector(".add-post-btn");
 //how do we know that the page is loaded?
 
 document.addEventListener('DOMContentLoaded', async function(){
+    addPosts();
+    addCallbackRequests();
+})
+
+addPostBtn.addEventListener("click", function(){
+    let articlesTab = document.getElementById("v-pills-articles");
+    articlesTab.classList.remove("show");
+    articlesTab.classList.remove("active");
+    let createPostTab = document.getElementById("v-pills-create-post");
+    createPostTab.classList.add("show");
+    createPostTab.classList.add("active");
+});
+
+async function addPosts(){
     let posts = await getPosts();
     let articles = document.querySelector('.articles');
     // we need to make sure that this div is empty so we can fill it
@@ -23,13 +37,24 @@ document.addEventListener('DOMContentLoaded', async function(){
         </article>`;
     articles.insertAdjacentHTML('beforeend', postHTML)
     })
-})
+}
 
-addPostBtn.addEventListener("click", function(){
-    let articlesTab = document.getElementById("v-pills-articles");
-    articlesTab.classList.remove("show");
-    articlesTab.classList.remove("active");
-    let createPostTab = document.getElementById("v-pills-create-post");
-    createPostTab.classList.add("show");
-    createPostTab.classList.add("active");
-});
+async function addCallbackRequests(){
+    let requests = await getCallbackRequests();
+    let requestsBlock = document.querySelector('#v-pills-callBack');
+    // we need to make sure that this div is empty so we can fill it
+    requestsBlock.innerHTML = '';
+    let i =1;
+    requests.forEach((request) => {
+        let requestHTML = `
+        <article class="d-flex justify-content-between align-items-center article-inline">
+            <div class="num w5">${i++}</div>
+            <input class="id" type="hidden" value="${request._id}">
+            <div class="name w60">${request.phoneNumber}</div>
+            <div class="date w30">${request.date}</div>
+            <div class="remove w5"><button class="btn btn-link btn-remove">X</button></div>
+        </article>`;
+        requestsBlock.insertAdjacentHTML('beforeend', requestHTML)
+    })
+}
+
