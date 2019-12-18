@@ -7,7 +7,7 @@ let postSchema = new Schema({
     date: Date,
     description: String,
     text: String,
-    Country: String,
+    country: String,
     imageURL: String
 }); 
 let Post = mongoose.model('Post', postSchema);
