@@ -44,7 +44,8 @@ router.post('/', async (req, resp) => {
 
 router.delete('/:id', async(req, resp) =>{
     let id = req.params.id;
-    await Post.deleteOne({id: id});
+    console.log(id);
+    await Post.deleteOne({_id: id});
     resp.send ('deleted!');
 })
 
