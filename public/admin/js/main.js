@@ -7,6 +7,7 @@ let addPostBtn = document.querySelector(".add-post-btn");
 document.addEventListener('DOMContentLoaded', async function(){
     addPosts();
     addCallbackRequests();
+    addEmails();
 })
 
 addPostBtn.addEventListener("click", function(){
@@ -58,3 +59,25 @@ async function addCallbackRequests(){
     })
 }
 
+async function addEmails(){
+    let emails = await getEmails();
+    let emailsBlock = document.querySelector('#v-pills-mails');
+    // we need to make sure that this div is empty so we can fill it
+    emailsBlock.innerHTML = '';
+    let i =1;
+    emails.forEach((email) => {
+        let requestHTML = `
+        <article class="d-flex justify-content-between align-items-center article-inline">
+            <div class="num w5">${i++}</div>
+            <input class="id" type="hidden" value="${email._id}">
+            <div class="name w30">${email.name}</div>
+            <div class="date w30">${email.email}</div>
+            <div class="date w30">${email.date}</div>
+            <div class="remove w5"><button class="btn btn-link btn-remove">X</button></div>
+            <div class="date w100">${email.text}</div>
+            
+        </article>`;
+        emailsBlock.insertAdjacentHTML('beforeend', requestHTML)
+    })
+
+}
