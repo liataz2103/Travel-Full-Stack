@@ -1,3 +1,4 @@
+
 let signInForm = document.querySelector('.sign-in-form');
 let registerForm = document.querySelector('.register-form');
 
@@ -10,15 +11,24 @@ signInForm.addEventListener('submit', function(e){
     fetch('http://localhost:3000/users/login', {
         // specify method unless its get
         method: 'POST',
+        // withCredentials: true,
+        // credentials: 'include'
         // specify headers
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({email, password})
         // 2 arrow func: 1: get resp as argument and transfer it to text format
-    }).then((resp)=> resp.text()).then((data)=>alert(data));
-
-})
+    }).then((resp) => {
+        if(resp.status == 400) {
+            return new Error();
+        }
+        // since data.redirecturl is an object so no text in this case
+        return resp.json();
+    }).then((data) =>{
+            window.location.href = data.redirectURL;
+        }).catch(() => alert('Wrong email or password'));
+});
 
 registerForm.addEventListener('submit', function(e){
     e.preventDefault
