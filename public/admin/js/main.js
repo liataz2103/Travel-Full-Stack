@@ -3,6 +3,8 @@
 let addPostBtn = document.querySelector(".add-post-btn");
 //those functions are called when admin page is loaded
 //how do we know that the page is loaded?
+let logOutBtn = document.querySelector('.log-out-btn');
+
 
 document.addEventListener('DOMContentLoaded', async function(){
     addPosts();
@@ -81,3 +83,7 @@ async function addEmails(){
     })
 
 }
+logOutBtn.addEventListener('click', function() {
+    document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+    window.location.href = '/';
+})

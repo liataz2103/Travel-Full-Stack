@@ -2,9 +2,11 @@ let uniqid = require('uniqid');
 let express = require('express');
 let router = express.Router();
 let CallbackRequest = require('../models/callback-requests').CallbackRequest;
+let authMiddleware = require('../middleware/auth');
 
 // when the page is loaded a get request is sent and the server send request to db to retrieve data
-router.get('/', async (req, resp) => {
+// the middlware chick if the user is authorized if so it calls next (which is the rest pf thr code, otherwise it send message not authorized)
+router.get('/', authMiddleware, async (req, resp) => {
     resp.send(await CallbackRequest.find());
 });
 
@@ -22,7 +24,7 @@ router.post('/',  async (req, resp) => {
 });
 
 //get info, send delete request to db , wait for respond and send to server deleted
-router.delete('/:id' , async (req, resp) => {
+router.delete('/:id', authMiddleware,  async (req, resp) => {
     await CallbackRequest.deleteOne({_id: req.params.id});
     resp.send('deleted');
 });

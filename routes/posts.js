@@ -2,6 +2,7 @@ let uniqid = require('uniqid');
 let Post = require('../models/posts').Post;
 let express = require('express');
 let router = express.Router();
+let authMiddleware = require('../middleware/auth');
 
 let id = 1
 
@@ -23,7 +24,7 @@ router.get('/:id', async (req, resp) => {
 
 
 //when the server gets a post request from the client (after submitting the form), he routes the request to the db
-router.post('/', async (req, resp) => {
+router.post('/', authMiddleware,   async (req, resp) => {
     let reqBody = req.body;
     let imgPath;
     // if imageURL is not empty (we upload image through url)
@@ -51,14 +52,14 @@ router.post('/', async (req, resp) => {
     resp.send('Created');
 });
 
-router.delete('/:id', async(req, resp) =>{
+router.delete('/:id', authMiddleware,  async(req, resp) =>{
     let id = req.params.id;
     console.log(id);
     await Post.deleteOne({_id: id});
     resp.send ('deleted!');
 })
 
-router.put('/:id', async (req, resp) => {
+router.put('/:id', authMiddleware,  async (req, resp) => {
     let id = req.params.id
     let post = await Post.updateOne({_id: id}, req.body);
     resp.send('updated!');
