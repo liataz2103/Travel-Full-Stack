@@ -18,6 +18,7 @@ let app = express();
 
 app.set('view engine', 'ejs');
 
+//mongodb+srv://vertex:linoad120@travelscluster-lcxan.mongodb.net/travels
 mongoose.connect('mongodb://localhost/travels', {
     useUnifiedTopology: true,
     useNewUrlParser: true,
