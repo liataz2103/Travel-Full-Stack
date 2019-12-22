@@ -51,6 +51,9 @@ footer>.container, footer .row{
 	width: 5%;
 }
 
+.h-50{
+	height: 100px;
+}
 .articles{
 	margin-top: 15px;
 }
